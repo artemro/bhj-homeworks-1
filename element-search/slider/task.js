@@ -21,11 +21,11 @@ function showPicture (index) {
     sliderList[currentPicture - 1].classList.remove("slider__item_active");
     dotList[index - 1].classList.add("slider__dot_active");
     sliderList[index - 1].classList.add("slider__item_active");
+    curPicSet();
 }
 
 dotList.forEach ((p) => {
     p.onclick = function () {
-        curPicSet();
         nextPicture = dotList.indexOf(p) + 1;
         showPicture(nextPicture);
     };
@@ -43,7 +43,6 @@ slideLeft.onclick = function() {
 }
 
 slideRight.onclick = function() {
-    curPicSet();
     if (currentPicture != sliderList.length) {
         nextPicture += 1;
     } 
