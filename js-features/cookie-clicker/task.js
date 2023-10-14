@@ -7,7 +7,6 @@ var counter = 0;
 function clickHandler() {
     const cookieCounter = document.getElementById("clicker__counter");
     let currentDate = new Date();
-    console.log(currentDate.getSeconds());
     counter++;
     cookieVelocity.textContent = 1000 / (currentDate - firstDate); // в секундах
     firstDate = currentDate;

@@ -10,7 +10,7 @@ function getHole(index) {
 
 for (let i = 1; i <= 9; i++) {
     getHole(i).onclick = function() {
-        if (getHole(i).className.includes( 'hole_has-mole' )) {
+        if (getHole(i).classList.contains( 'hole_has-mole' )) {
             counterWin += 1;
             wins.textContent = counterWin;
         }
