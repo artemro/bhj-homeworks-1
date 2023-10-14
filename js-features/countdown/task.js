@@ -4,7 +4,12 @@ const timerText = function(){
     let timer = new Date (seconds.textContent * 1000).toLocaleTimeString().slice(6);
     seconds.textContent -= 1;
     timer -= 1;
-    extendedTimer.textContent = "00:00:" + timer;
+    if (timer < 10) {
+        extendedTimer.textContent = "00:00:0" + timer;
+    } 
+    else {
+        extendedTimer.textContent = "00:00:" + timer;
+    }
     if (seconds.textContent == 0) {
         clearInterval(intervalId);
         alert("Вы победили в конкурсе!");
