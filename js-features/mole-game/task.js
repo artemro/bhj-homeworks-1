@@ -20,9 +20,11 @@ for (let i = 1; i <= 9; i++) {
         };
         if (counterWin == 10 | counterLose == 5) {
             if (counterWin == 10) {
+                wins.textContent = counterWin;
                 alert("Победа!");
             }
             else {
+                loses.textContent = counterLose;
                 alert("Вы проиграли!");
             };
             counterWin = 0;
