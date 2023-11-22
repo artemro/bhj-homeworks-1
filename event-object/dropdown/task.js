@@ -4,7 +4,7 @@ const dropdownItems = Array.from(document.querySelectorAll('.dropdown__item'));
 const dropdownValue = document.querySelector('.dropdown__value');
 
 function clickHandler () {
-    dropdownList.classList.add('dropdown__list_active');
+    dropdownList.classList.toggle('dropdown__list_active');
 }
 
 dropdownButton.addEventListener("click", clickHandler)
