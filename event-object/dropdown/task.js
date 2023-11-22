@@ -10,7 +10,7 @@ function clickHandler () {
 dropdownButton.addEventListener("click", clickHandler)
 
 dropdownItems.forEach((p) => {
-    p.onclick = function () {
+    p.onclick = () => {
         console.log(dropdownValue);
         dropdownValue.textContent = p.textContent;
         console.log(dropdownList);
