@@ -1,10 +1,12 @@
+let counter = 0; // переменная для определения текущего символа
+
 class Game {
   constructor(container) {
     this.container = container;
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
-
+    this.currentSymbol = '';
     this.reset();
 
     this.registerEvents();
@@ -17,14 +19,20 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода слова вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    document.addEventListener('keyup', this.keyupHandler.bind(this)); 
+  } 
+
+  keyupHandler(event) {
+    const symbols = Array.from(document.querySelectorAll('.symbol'));
+    this.currentSymbol = symbols[counter];
+    counter++; 
+    if (event.key.toLowerCase() === this.currentSymbol.textContent.toLowerCase()) {
+      this.success();
+    }
+    else {
+      this.fail();
+    }
+
   }
 
   success() {
@@ -41,7 +49,9 @@ class Game {
       alert('Победа!');
       this.reset();
     }
-    this.setNewWord();
+    let timer = this.setNewWord() - 1;
+    console.log("ID received from setNewWord", timer, "finished successfully");
+    clearInterval(timer); // 
   }
 
   fail() {
@@ -49,13 +59,28 @@ class Game {
       alert('Вы проиграли!');
       this.reset();
     }
-    this.setNewWord();
+    let timer = this.setNewWord() - 1; 
+    console.log("ID received from setNewWord", timer,  "failed");
+    clearInterval(timer);
   }
 
   setNewWord() {
     const word = this.getWord();
-
+    counter = 0;
     this.renderWord(word);
+    console.log("Word set", word);
+    const symbols = Array.from(document.querySelectorAll('.symbol'));
+    let len = symbols.length;
+    const timeLeft = document.querySelector('.time');
+    let timerId = setInterval(() => {
+      timeLeft.textContent = len;
+      len -= 1;
+      if (len < 0 ) { // если время закончилось - слово считается неправильно введённым
+        this.fail();
+      }
+    }, 1000)
+    console.log("Timer ID: ", timerId);
+    return timerId;
   }
 
   getWord() {
@@ -85,7 +110,6 @@ class Game {
       )
       .join('');
     this.wordElement.innerHTML = html;
-
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
   }
 }
